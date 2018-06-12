@@ -54,7 +54,6 @@ batch_size = 16
 # In[5]:
 
 
-input_tensor = Input(shape=(224,224,3))
 image_net = keras.applications.VGG16(weights='imagenet', include_top=True, input_shape = None)
 print('Model loaded.')
 base_model = image_net
@@ -62,14 +61,14 @@ base_model.layers.pop()
 base_model.layers.pop()
 base_model.layers.pop()
 
-num_layers_not_train = len(base_model.layers)
+num_layers_not_train = len(base_model.layers) - 9
 
 new_model = Sequential()
 for layer in base_model.layers:
     new_model.add(layer)
     
 base_model.summary()
-for layer in base_model.layers[:(num_layers_not_train - 9)]:
+for layer in base_model.layers[:num_layers_not_train9]:
     layer.trainable = False
     
 base_model.summary()
